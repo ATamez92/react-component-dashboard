@@ -1,16 +1,55 @@
-# React + Vite
+# Task Manager Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React application developed for Assignment 6 in COSC 3351 – Internet Programming at Texas A&M University–Corpus Christi.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Task Manager Dashboard is a single-page application that allows users to create tasks, mark them as completed, and view a summary of their progress. The project demonstrates React functional components, props, state management, controlled forms, conditional rendering, and dynamic lists.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Add tasks using a controlled input form.
+- Mark tasks as completed or incomplete.
+- View total, completed, and remaining task counts.
+- Switch between Dashboard and About views.
+- Toggle between light and dark appearance modes.
+- Responsive layout for different screen sizes.
 
-## Expanding the ESLint configuration
+## Technologies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- JavaScript (JSX)
+- HTML and CSS
+- Vite
+
+## Running the Project
+
+1. Install [Node.js](https://nodejs.org/) if it is not already installed.
+2. Open a terminal in the project directory.
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open the local address displayed in the terminal.
+
+## Project Structure
+
+- `src/App.jsx` — Main application component and shared state.
+- `src/App.css` — Application styling, layout, and themes.
+- `src/components/` — Individual React components for the dashboard.
+- `src/index.css` — Global styling.
+- `src/main.jsx` — React application entry point.
+
+## Notes
+
+Task data is maintained using React state and resets when the page is refreshed. Persistent storage is not implemented.
+
+This application was created as a course assignment to practice component-based development using React.
