@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import TaskList from './components/TaskList'
+import TaskForm from './components/TaskForm'
 
 // App manages shared task state and renders the main components.
 function App() {
@@ -21,9 +22,20 @@ function App() {
   const toggleTask = (id) => {
     setTasks(tasks.map(task =>
       task.id === id
-      ? { ...task, done: !task.done }
-      : task
+        ? { ...task, done: !task.done }
+        : task
     ))
+  }
+
+  // Add a new task to the existing task collection.
+  const addTask = (title) => {
+    const newTask = {
+      id: crypto.randomUUID(),
+      title: title,
+      done: false
+    }
+
+    setTasks(previousTasks => [...previousTasks, newTask])
   }
 
   return (
@@ -35,7 +47,10 @@ function App() {
       {/* Display a message based on the isReady condition. */}
       <p>{isReady ? "Dashboard Ready" : "Dashboard Not Ready"}</p>
 
-      {/* Pass both the task data and the function for updating it. */ }
+      {/* Display the form above the task list. */}
+      <TaskForm addTask={addTask} />
+
+      {/* Pass both the task data and the function for updating it. */}
       <TaskList tasks={tasks} toggleTask={toggleTask} />
 
     </div>
