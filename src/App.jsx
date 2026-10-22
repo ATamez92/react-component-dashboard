@@ -15,6 +15,10 @@ function App() {
   // The dashboard is the default view when the app first loads.
   const [view, setView] = useState('dashboard')
 
+  // Track whether the application is using the dark theme.
+  // False means light mode, true means dark mode.
+  const [darkMode, setDarkMode] = useState(false)
+
   // Store the task array in React state so its changes
   // can trigger updates to the interface.
   const [tasks, setTasks] = useState([
@@ -45,13 +49,16 @@ function App() {
   }
 
   return (
-    <div className="container">
+    <div className={`app-shell ${darkMode ? 'dark' : 'light'}`}>
+      <div className="container">
 
       {/* Render the Header component imported from Header.jsx */}
       <Header title="React Component Dashboard" />
 
-      {/* Switch between views by updating React state. */}
+      {/* Navigation and appearance controls. */}
       <nav aria-label="Dashboard navigation">
+
+        {/* Button to display the Dashboard view. */}
         <button
           type="button"
           onClick={() => setView('dashboard')}
@@ -59,11 +66,20 @@ function App() {
           Dashboard
         </button>
 
+        {/* Button to display the About view. */}
         <button
           type="button"
           onClick={() => setView('about')}
         >
           About
+        </button>
+
+        {/* Toggle the theme by reversing the current boolean state. */}
+        <button
+          type="button"
+          onClick={() => setDarkMode(previousMode => !previousMode)}
+        >
+          {darkMode ? 'Light Mode' : 'Dark Mode'}
         </button>
       </nav>
 
@@ -85,7 +101,7 @@ function App() {
       ) : (
         <About />
       )}
-
+      </div>
     </div>
   )
 }

@@ -10,3 +10,70 @@ ul {
   list-style: none;
   padding-left: 0;
 }
+
+/* Give the application container consistent theme transitions. */
+.app-shell {
+  min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Light theme dark text on a light background. */
+.app-shell.light {
+  background-color: #f2f6f8;
+  color: #242442;
+}
+
+/* Dark theme: light text on a dark background. */
+.app-shell.dark {
+  background-color: #333333;
+  color: #f2f6f8;
+}
+
+/* Apply consistent sizing and spacing to all buttons. */
+button {
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Style the text input used by the Add Task form. */
+input[type="text"] {
+  padding: 10px 12px;
+  border: 1px solid #c7d3dc;
+  border-radius: 6px;
+  font: inherit;
+}
+
+/* Keep the keyboard focus indicator visible for accessibility. */
+button:focus-visible,
+  input[type="text"]:focus-visible {
+    outline: 2px solid #0084d6;
+    outline-offset: 2px;
+}
+
+/* Light theme button and input colors. */
+.app-shell.light button {
+  background-color: #e1e9ef;
+  color: #243442;
+}
+
+/* Dark theme button and input colors. */
+.app-shell.dark button {
+  background-color: #33465a;
+  color: #f2f6f8;
+}
+
+.app-shell.dark input [type="text"] {
+  background-color: #253545;
+  color: #f2f6f8;
+  border-color: #566a7e;
+}
+
+/* Give the form's submission button a blue accent in both themes. */
+.app-shell button[type="submit"] {
+  background-color: #006bb6;
+  color: #ffffff;
+}
