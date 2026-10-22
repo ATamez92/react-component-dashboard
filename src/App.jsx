@@ -1,12 +1,30 @@
+import { useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import TaskList from './components/TaskList'
 
-// App is the root functional component of our React application.
-// It returns JSX describing the elements React should display.
+// App manages shared task state and renders the main components.
 function App() {
   // Controls which message is displayed using a boolean.
   const isReady = true;
+
+  // Store the task array in React state so its changes
+  // can trigger updates to the interface.
+  const [tasks, setTasks] = useState([
+    { id: 1, title: "Finish React assignment", done: false },
+    { id: 2, title: "Read Chapter 5", done: false },
+    { id: 3, title: "Submit JavaScript homework", done: true }
+  ])
+
+  // Update the completion status of the task matching the given ID.
+  // map() creates a new array, while spread copies the matching object.
+  const toggleTask = (id) => {
+    setTasks(tasks.map(task =>
+      task.id === id
+      ? { ...task, done: !task.done }
+      : task
+    ))
+  }
 
   return (
     <div className="container">
@@ -17,8 +35,8 @@ function App() {
       {/* Display a message based on the isReady condition. */}
       <p>{isReady ? "Dashboard Ready" : "Dashboard Not Ready"}</p>
 
-      {/* Render the TaskList component below the header. */ }
-      <TaskList />
+      {/* Pass both the task data and the function for updating it. */ }
+      <TaskList tasks={tasks} toggleTask={toggleTask} />
 
     </div>
   )

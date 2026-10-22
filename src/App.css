@@ -3,3 +3,10 @@
   margin: 0 auto;
   padding: 20px;
 }
+
+/* Remove the default bullet points and left indentation
+   from the task list while retaining its HTML structure. */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
