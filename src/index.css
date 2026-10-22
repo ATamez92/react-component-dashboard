@@ -1,0 +1,19 @@
+
+/* Apply border-box sizing so padding and borders are included
+   within an element's specified width and height. */
+* {
+  box-sizing: border-box;
+}
+
+/* Remove the browser's default margin and establish a
+   consistent font for the entire React application. */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Ensure the root element can occupy the full browser height.
+   React renders the application inside this element. */
+#root {
+  min-height: 100vh;
+}
