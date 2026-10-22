@@ -6,38 +6,33 @@ import TaskForm from './components/TaskForm'
 import About from './components/About'
 import Summary from './components/Summary'
 
-// App manages shared task state and renders the main components.
+// Main application component responsible for shared state and navigation.
 function App() {
-  // Controls which message is displayed using a boolean.
-  const isReady = true;
-
-  // Track which application view should be displayed.
-  // The dashboard is the default view when the app first loads.
+  // Track the currently selected view and appearance mode.
   const [view, setView] = useState('dashboard')
-
-  // Track whether the application is using the dark theme.
-  // False means light mode, true means dark mode.
   const [darkMode, setDarkMode] = useState(false)
 
-  // Store the task array in React state so its changes
-  // can trigger updates to the interface.
+  // Maintain the task collection in shared state so child components
+  // receive updated data whenever a task is added or modified.
   const [tasks, setTasks] = useState([
-    { id: 1, title: "Finish React assignment", done: false },
-    { id: 2, title: "Read Chapter 5", done: false },
-    { id: 3, title: "Submit JavaScript homework", done: true }
+    { id: 1, title: 'Finish React assignment', done: false },
+    { id: 2, title: 'Read Chapter 5', done: false },
+    { id: 3, title: 'Submit JavaScript homework', done: false }
   ])
 
-  // Update the completion status of the task matching the given ID.
-  // map() creates a new array, while spread copies the matching object.
+  // Toggle the completion status of a task identified by its ID.
+  // Create a new array and copy the matching object to avoid mutating state.
   const toggleTask = (id) => {
-    setTasks(tasks.map(task =>
-      task.id === id
-        ? { ...task, done: !task.done }
-        : task
-    ))
+    setTasks(previousTasks =>
+      previousTasks.map(task =>
+        task.id === id
+          ? { ...task, done: !task.done }
+          : task
+      )
+    )
   }
 
-  // Add a new task to the existing task collection.
+  // Create a new task and append it to the existing collection.
   const addTask = (title) => {
     const newTask = {
       id: crypto.randomUUID(),
@@ -52,59 +47,56 @@ function App() {
     <div className={`app-shell ${darkMode ? 'dark' : 'light'}`}>
       <div className="container">
 
-      {/* Render the Header component imported from Header.jsx */}
-      <Header title="React Component Dashboard" />
+        <Header title="Task Manager Dashboard" />
 
-      {/* Navigation and appearance controls. */}
-      <nav aria-label="Dashboard navigation">
+        {/* Navigation updates the selected view without changing pages. */}
+        <nav className="dashboard-nav" aria-label="Dashboard navigation">
 
-        {/* Button to display the Dashboard view. */}
-        <button
-          type="button"
-          onClick={() => setView('dashboard')}
-        >
-          Dashboard
-        </button>
+          {/* Highlight the Dashboard button when its view is selected. */}
+          <button
+            type="button"
+            className={view === 'dashboard' ? 'nav-active' : ''}
+            aria-pressed={view === 'dashboard'}
+            onClick={() => setView('dashboard')}
+          >
+            Dashboard
+          </button>
 
-        {/* Button to display the About view. */}
-        <button
-          type="button"
-          onClick={() => setView('about')}
-        >
-          About
-        </button>
+          {/* Highlight the About button when its view is selected. */}
+          <button
+            type="button"
+            className={view === 'about' ? 'nav-active' : ''}
+            aria-pressed={view === 'about'}
+            onClick={() => setView('about')}
+          >
+            About
+          </button>
 
-        {/* Toggle the theme by reversing the current boolean state. */}
-        <button
-          type="button"
-          onClick={() => setDarkMode(previousMode => !previousMode)}
-        >
-          {darkMode ? 'Light Mode' : 'Dark Mode'}
-        </button>
-      </nav>
+          {/* Toggle between light and dark appearance modes. */}
+          <button
+            type="button"
+            className="theme-button"
+            onClick={() => setDarkMode(previousMode => !previousMode)}
+          >
+            {darkMode ? 'Light Mode' : 'Dark Mode'}
+          </button>
+        </nav>
 
-      {/* Display a message based on the isReady condition. */}
-      <p>{isReady ? "Dashboard Ready" : "Dashboard Not Ready"}</p>
+        {/* Render the selected view using conditional rendering. */}
+        {view === 'dashboard' ? (
+          <>
+            <Summary tasks={tasks} />
+            <TaskForm addTask={addTask} />
+            <TaskList tasks={tasks} toggleTask={toggleTask} />
+          </>
+        ) : (
+          <About />
+        )}
 
-      {/* Display the Dashboard or About content based on React state. */}
-      {view === 'dashboard' ? (
-        <>
-          {/* Pass the tasks array to Summary to calculate statistics. */}
-          <Summary tasks={tasks} />
-
-          {/* Display the form above the task list. */}
-          <TaskForm addTask={addTask} />
-
-          {/* Pass both the task data and the function for updating it. */}
-          <TaskList tasks={tasks} toggleTask={toggleTask} />
-        </>
-      ) : (
-        <About />
-      )}
       </div>
     </div>
   )
 }
 
-// Export App so main.jsx can import and render this component.
+// Export the root component for rendering in main.jsx.
 export default App

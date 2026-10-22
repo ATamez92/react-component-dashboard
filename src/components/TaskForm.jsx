@@ -1,43 +1,45 @@
 import { useState } from 'react'
 
-// Receive the callback used to add tasks to App's state.
+// Provides a controlled form for creating new tasks.
 const TaskForm = ({ addTask }) => {
-
-    // Store the current text entered into the form.
+    // Store the current task title entered by the user.
     const [title, setTitle] = useState('')
 
-    // Handle submission without reloading the page.
+    // Validate the title and submit it without reloading the page.
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        // Reject titles that are empty or contain only whitespace.
-        if (title.trim() === '') {
+        // Remove surrounding whitespace and reject empty titles.
+        const trimmedTitle = title.trim()
+
+        if (trimmedTitle === '') {
             return
         }
 
-        // Add the task to the parent's state and clear the input.
-        addTask(title.trim())
+        // Add the new task through the parent callback and reset the input.
+        addTask(trimmedTitle)
         setTitle('')
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="task-title">Task Title</label>
+        <form className="task-form" onSubmit={handleSubmit}>
 
-            {/* Keep the input synchronized with the title state. */}
-            <input
-                type="text"
-                id="task-title"
-                placeholder="Enter a task..."
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-            />
+            {/* Group the controlled input and submission button for layout. */}
+            <div className="task-form-row">
+                <input
+                    type="text"
+                    id="task-title"
+                    aria-label="Task Title"
+                    placeholder="Enter a task..."
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
+                />
 
-            {/* Submit the form using handleSubmit. */}
-            <button type="submit">Add Task</button>
+                <button type="submit">Add Task</button>
+            </div>
         </form>
     )
 }
 
-// Export TaskForm so App can import and display it.
+// Export TaskForm for use in App.jsx.
 export default TaskForm

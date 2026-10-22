@@ -1,79 +1,284 @@
+/* =========================================
+   APPLICATION LAYOUT
+   ========================================= */
+
+/* Center the application content within a maximum width. */
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Remove the default bullet points and left indentation
-   from the task list while retaining its HTML structure. */
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-/* Give the application container consistent theme transitions. */
+/* Fill the viewport and animate theme color changes. */
 .app-shell {
   min-height: 100vh;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Light theme dark text on a light background. */
+
+/* =========================================
+   LIGHT AND DARK THEMES
+   ========================================= */
+
+/* Define the colors used throughout the light theme. */
 .app-shell.light {
-  background-color: #f2f6f8;
-  color: #242442;
+  --bg-primary: #eeeeee;
+  --bg-surface: #dddddd;
+  --text-primary: #222222;
+  --border-color: #c5c5c5;
+  --accent: #1166ee;
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-/* Dark theme: light text on a dark background. */
+/* Define the colors used throughout the dark theme. */
 .app-shell.dark {
-  background-color: #333333;
-  color: #f2f6f8;
+  --bg-primary: #111111;
+  --bg-surface: #222222;
+  --text-primary: #eeeeee;
+  --border-color: #444444;
+  --accent: #1166ee;
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-/* Apply consistent sizing and spacing to all buttons. */
+
+/* =========================================
+   BUTTONS AND INPUTS
+   ========================================= */
+
+/* Apply consistent sizing and appearance to buttons. */
 button {
   padding: 10px 16px;
   border: 1px solid transparent;
   border-radius: 6px;
   font: inherit;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, filter 0.2s ease;
 }
 
-/* Style the text input used by the Add Task form. */
+/* Style buttons using the active theme's colors. */
+.app-shell button {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Highlight the form submission button with the shared accent color. */
+.app-shell button[type="submit"] {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+/* Provide visual feedback when a button is hovered over. */
+.app-shell button:hover {
+  filter: brightness(0.92);
+}
+
+/* Apply consistent sizing to text inputs. */
 input[type="text"] {
   padding: 10px 12px;
-  border: 1px solid #c7d3dc;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font: inherit;
 }
 
-/* Keep the keyboard focus indicator visible for accessibility. */
+/* Match the task input to the selected appearance mode. */
+.app-shell input[type="text"] {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* Preserve a visible focus indicator for keyboard navigation. */
 button:focus-visible,
-  input[type="text"]:focus-visible {
-    outline: 2px solid #0084d6;
-    outline-offset: 2px;
+input[type="text"]:focus-visible {
+  outline: 2px solid #1166ee;
+  outline-offset: 2px;
 }
 
-/* Light theme button and input colors. */
-.app-shell.light button {
-  background-color: #e1e9ef;
-  color: #243442;
+
+/* =========================================
+   NAVIGATION AND SECTION SPACING
+   ========================================= */
+
+/* Arrange navigation buttons horizontally with consistent spacing. */
+.dashboard-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 16px 0 24px;
 }
 
-/* Dark theme button and input colors. */
-.app-shell.dark button {
-  background-color: #33465a;
-  color: #f2f6f8;
+/* Use transparent backgrounds and blue outlines for navigation buttons. */
+.app-shell .dashboard-nav button {
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
 }
 
-.app-shell.dark input [type="text"] {
-  background-color: #253545;
-  color: #f2f6f8;
-  border-color: #566a7e;
-}
-
-/* Give the form's submission button a blue accent in both themes. */
-.app-shell button[type="submit"] {
-  background-color: #006bb6;
+/* Highlight the currently selected Dashboard or About view. */
+.app-shell .dashboard-nav button.nav-active {
+  background-color: var(--accent);
+  border-color: var(--accent);
   color: #ffffff;
+}
+
+/* Improve the visibility of outlined buttons in dark mode. */
+.app-shell.dark .dashboard-nav button:not(.nav-active) {
+  color: #8fb5ff;
+}
+
+/* Apply a light blue hover background to inactive buttons in light mode. */
+.app-shell.light .dashboard-nav button:not(.nav-active):hover {
+  background-color: #d6e3fa;
+  filter: none;
+}
+
+/* Apply a darker blue hover background to inactive buttons in dark mode. */
+.app-shell.dark .dashboard-nav button:not(.nav-active):hover {
+  background-color: #243b63;
+  filter: none;
+}
+
+/* Darken the active navigation button slightly when hovered over. */
+.app-shell .dashboard-nav button.nav-active:hover {
+  background-color: #0d51c2;
+  filter: none;
+}
+
+/* Separate the main dashboard sections vertically. */
+.container>section,
+.container>form {
+  margin-top: 24px;
+}
+
+
+/* =========================================
+   TASK SUMMARY
+   ========================================= */
+
+/* Display summary cards in three equally sized columns. */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Display each statistic inside a theme-aware panel. */
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* Emphasize the statistic while keeping its label secondary. */
+.summary-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.summary-label {
+  font-size: 0.9rem;
+}
+
+
+/* =========================================
+   TASK FORM
+   ========================================= */
+
+/* Stack the form label above its input and submit button. */
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Arrange the input and submit button horizontally. */
+.task-form-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+/* Let the text input occupy the remaining available space. */
+.task-form-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* =========================================
+   TASK LIST AND ITEMS
+   ========================================= */
+
+/* Remove browser-default list markers and indentation. */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Display individual tasks as bordered panels. */
+.task-item {
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* Align each checkbox with its task title. */
+.task-item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+
+/* =========================================
+   RESPONSIVE LAYOUT
+   ========================================= */
+
+/* Adapt the dashboard layout to screens 600px wide or smaller. */
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+
+  /* Rearrange summary cards into two columns. */
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Let the total count occupy the first full row. */
+  .summary-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Stack the task input and submission button vertically. */
+  .task-form-row {
+    flex-direction: column;
+  }
+
+  .task-form-row button {
+    width: 100%;
+  }
+
+  /* Reduce spacing between navigation buttons on narrow screens. */
+  .dashboard-nav {
+    gap: 8px;
+  }
 }

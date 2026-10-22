@@ -1,13 +1,11 @@
-// Receive the title prop from App using object destructuring.
+// Displays the application title received through props.
 const Header = ({ title }) => {
-
-  // Return the JSX containing the application's main heading.
-  return (
-    <header>
-      <h1>{title}</h1>
-    </header>
-  )
+    return (
+        <header>
+            <h1>{title}</h1>
+        </header>
+    )
 }
 
-// Export Header so App.jsx can import and render this component.
+// Export Header for use in App.jsx.
 export default Header

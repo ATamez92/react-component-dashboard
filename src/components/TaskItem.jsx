@@ -1,23 +1,21 @@
-// Receive the task object and the function used
-// to update its completion status.
+// Displays an individual task and handles completion changes.
 const TaskItem = ({ task, toggleTask }) => {
     return (
-        <li>
-            <label>
-                {/* The checkbox is controlled by the task's done property.
-            Its onChange handler calls toggleTask with this task's ID. */}
+        <li className="task-item">
+            <label className="task-item-content">
+                {/* Keep the checkbox synchronized with the task's completion
+            status and notify App when the user changes it. */}
                 <input
                     type="checkbox"
                     checked={task.done}
                     onChange={() => toggleTask(task.id)}
-                    />
+                />
 
-                    {/* Display the task title beside its checkbox. */}
-                    <span>{task.title}</span>
+                <span>{task.title}</span>
             </label>
         </li>
     )
 }
 
-// Export TaskItem so TaskList can import and render it.
+// Export TaskItem for use in TaskList.jsx.
 export default TaskItem

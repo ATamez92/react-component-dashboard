@@ -1,23 +1,24 @@
-// About displays information about the React dashboard.
-// This component does not require props or state.
+// Displays information about the dashboard and its functionality.
 const About = () => {
     return (
         <section>
             <h2>About This Application</h2>
 
             <p>
-                This space is reservered for the Student Productivity Dashboard
-                and was built using React to help users organize and track their
-                tasks.
+                The Student Productivity Dashboard is a React application
+                that allows users to create, organize, and track tasks.
+                Users can add new tasks, update their completion status,
+                and view a summary of their progress.
             </p>
 
             <p>
-                The application contains reusable components, props, state
-                management, event handling, and controlled forms.
+                The application demonstrates reusable React components,
+                props, state management, event handling, controlled forms,
+                and conditional rendering.
             </p>
         </section>
     )
 }
 
-// Export About so it can be imported into App.jsx
+// Export About for use in App.jsx.
 export default About
