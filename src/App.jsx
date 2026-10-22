@@ -1,5 +1,6 @@
 import './App.css'
 import Header from './components/Header'
+import TaskList from './components/TaskList'
 
 // App is the root functional component of our React application.
 // It returns JSX describing the elements React should display.
@@ -15,6 +16,9 @@ function App() {
 
       {/* Display a message based on the isReady condition. */}
       <p>{isReady ? "Dashboard Ready" : "Dashboard Not Ready"}</p>
+
+      {/* Render the TaskList component below the header. */ }
+      <TaskList />
 
     </div>
   )
